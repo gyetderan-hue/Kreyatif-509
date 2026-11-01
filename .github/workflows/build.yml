@@ -8,7 +8,11 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
-      - run: flutter pub get
+      - name: Fix old Gradle project
+        run: |
+          rm -rf android ios web
+          flutter create . --org com.kreyatif509 --project-name kreyatif_509 --platforms android
+          flutter pub get
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
